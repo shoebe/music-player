@@ -2,12 +2,18 @@
     <div class="base-container">
         <div class="song-control-container"> 
             <Icon :icon="icons.previous" class="svg-button skip"/>
-            <Icon :icon="icons.pause" class="svg-button playpause"/>
+            <transition name="fade" mode="out-in">
+                <Icon v-if="playing" :icon="icons.play" @click="set_play(false)" class="svg-button playpause" />
+                <Icon v-else :icon="icons.pause" @click="set_play(true)" class="svg-button playpause"/>
+
+            </transition>
             <Icon :icon="icons.next" class="svg-button skip"/>
         </div>
         <TheSongInfo class="song-info" />
-        <Icon v-if="expanded" @click="expand" :icon="icons.retract" class="svg-button expand-retract" />
-        <Icon v-else @click="expand" :icon="icons.expand" class="svg-button expand-retract" />
+        <transition name="fade" mode="out-in">
+            <Icon v-if="expanded" @click="set_expand(false)" :icon="icons.retract" class="svg-button expand-retract" />
+            <Icon v-else @click="set_expand(true)" :icon="icons.expand" class="svg-button expand-retract" />
+        </transition>
     </div>
 
 </template>
@@ -50,9 +56,12 @@ export default {
         };
     },
     methods: {
-        expand() {
-            this.expanded = !this.expanded;
-        }
+        set_expand(yes) {
+            this.expanded = yes;
+        },
+        set_play(yes) {
+            this.playing = yes;
+        },
     },
 };
 </script>
@@ -92,6 +101,14 @@ export default {
     }
     .expand-retract {
         font-size: 6.5rem;
+    }
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity 0.15s ease-in-out;
+    }
+    .fade-enter-from,
+    .fade-leave-to{
+        opacity: 0;
     }
 
 </style>
