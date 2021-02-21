@@ -31,10 +31,6 @@ import roundFastRewind from '@iconify/icons-ic/round-fast-rewind';
 
 import TheSongInfo from "./TheSongInfo.vue"
 
-// import roundRemove from '@iconify/icons-ic/round-remove';
-// import roundShuffle from '@iconify/icons-ic/round-shuffle';
-// import roundMoreHoriz from '@iconify/icons-ic/round-more-horiz';
-
 
 export default {
     components: {
